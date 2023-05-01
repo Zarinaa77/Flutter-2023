@@ -1,0 +1,16 @@
+import 'package:flutter/material.dart';
+import 'package:sabak11_piano_app_ui/app/app.dart';
+import 'package:flutter/services.dart';
+
+
+
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations;
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.landscapeLeft,
+    DeviceOrientation.portraitDown
+  ]).then((value) => runApp(MyApp()));
+    runApp( MyApp());
+}
+
