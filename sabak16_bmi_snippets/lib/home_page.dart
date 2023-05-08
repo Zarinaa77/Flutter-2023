@@ -2,65 +2,141 @@ import 'package:flutter/material.dart';
 import 'package:sabak16_bmi_snippets/components/status_card.dart';
 import 'package:sabak16_bmi_snippets/theme/app_colors.dart';
 import 'package:sabak16_bmi_snippets/theme/app_text.dart';
-import 'components/status_card2.dart';
-import 'components/status_card_for_slider.dart';
+import 'components/calculate_Button.dart';
+import 'components/height.dart';
+import 'components/male_female.dart';
+import 'components/weight_age.dart';
+
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
+
 class _MyHomePageState extends State<MyHomePage> {
+  bool isTrue = true;
+  int weight = 0;
+  int age = 0;
+  double height = 180;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(backgroundColor: const Color(0xff0A001f),
-      appBar: AppBar(backgroundColor: AppColors.fonColor,
-        title: const Center(child:Text(AppTexts.bmi)),
+    return Scaffold(
+      backgroundColor: const Color(0xff0A001f),
+      appBar: AppBar(
+        backgroundColor: AppColors.fonColor,
+        title: const Center(child: Text(AppTexts.bmi)),
         elevation: 0,
       ),
       body: Padding(
-        padding: const EdgeInsets.only(left:21,top:32,right: 21,bottom: 41),
+        padding:
+            const EdgeInsets.only(left: 21, top: 32, right: 21, bottom: 41),
         child: Column(
           children: [
+
+//////MaleFemale кнопки 
+
             Expanded(
-              child: Row(children:const [ 
-                StatusCard(icon: Icons.male, text: AppTexts.male,),
-                SizedBox(width: 39,),
-                   StatusCard(icon: Icons.female, text: AppTexts.female,),
-              ],
+              child: Row(
+                children: [
+                  StatusCard(
+                    child: InkWell(
+                        onTap: () {
+                          setState(() {
+                            isTrue = true;
+                          });
+                        },
+                        child: MaleFemale(
+                          icon: Icons.male,
+                          text: AppTexts.male,
+                          isTrue: isTrue,
+                        )),
+                  ),
+                  const SizedBox(
+                    width: 39,
+                  ),
+                  StatusCard(
+                    child: InkWell(
+                        onTap: () {
+                          setState(() {
+                            isTrue = false;
+                          });
+                        },
+                        child: MaleFemale(
+                          icon: Icons.female,
+                          text: AppTexts.female,
+                          isTrue: !isTrue,
+                        )),
+                  ),
+                ],
               ),
             ),
             const SizedBox(height: 18,),
-              Expanded(
-                child: Row(
-                  children: const [
-                    StatusCardSlider( 
-                      text: AppTexts.height,
-                      text1: '',
-                       text2: 'cm',
+
+            /// Для ролл кнопки Height
+            
+            StatusCard(
+              child: Height(
+                text: AppTexts.height,
+                text1: '${height.round()}',
+                text2: 'cm',
+                onChanged: (value) {
+                  setState(() {
+                    height = value;
+                  });
+                },
+                height: height,
+              ),
+            ),
+            const SizedBox(
+              height: 18,
+            ),
+
+            /// для кнопок WeightAge
+            
+            Expanded(
+              child: Row(
+                children: [
+                  StatusCard(
+                      child: Weightage(
+                    text: AppTexts.weight,
+                    san: '$weight',
+                    removebasuu: () {
+                      setState(() {
+                        weight--;
+                      });
+                    },
+                    addbasuu: () {
+                      setState(() {
+                        weight++;
+                      });
+                    },
+                  )),
+                  const SizedBox(
+                    width: 39,
+                  ),
+                  StatusCard(
+                    child: Weightage(
+                      text: AppTexts.age,
+                      san: '$age',
+                      addbasuu: () {
+                        setState(() {
+                          age++;
+                        });
+                      },
+                      removebasuu: () {
+                        setState(() {
+                          age--;
+                        });
+                      },
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-               const SizedBox(height: 18,),
-               Expanded(
-                child: Row(
-                  children:[
-                    StatusCard2(text: AppTexts.weight,san:0,),
-                    SizedBox(width: 39,),
-                    StatusCard2( text: AppTexts.age,san:0,),
-                  ],
-                ),
-              ),
+            ),
           ],
         ),
       ),
-      bottomNavigationBar: Container(
-              height: 73,
-              width: double.infinity,
-              color: AppColors.pinkColor,
-              child: const Center(child: Text(AppTexts.calculator,style: TextStyle(fontSize: 22,fontWeight: FontWeight.w500
-              ),)),
-            ) ,
+      bottomNavigationBar: const CalculateButton(),
     );
   }
 }
