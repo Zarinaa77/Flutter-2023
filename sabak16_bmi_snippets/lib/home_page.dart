@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sabak16_bmi_snippets/components/result_page.dart';
 import 'package:sabak16_bmi_snippets/components/status_card.dart';
 import 'package:sabak16_bmi_snippets/theme/app_colors.dart';
 import 'package:sabak16_bmi_snippets/theme/app_text.dart';
@@ -15,8 +16,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   bool isTrue = true;
-  int weight = 0;
-  int age = 0;
+  int weight = 60;
+  int age = 18;
   double height = 180;
   @override
   Widget build(BuildContext context) {
@@ -136,7 +137,21 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      bottomNavigationBar: const CalculateButton(),
+      bottomNavigationBar: CalculateButton(
+        onPressed:(){
+//resultattar();
+          Navigator.push(
+            context,
+             MaterialPageRoute(
+              builder:(context)
+               =>ResultPage(
+                metri: height,
+                salmak: weight,
+                ),
+          ),
+          );
+        },
+      ),
     );
   }
 }

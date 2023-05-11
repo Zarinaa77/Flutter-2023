@@ -6,7 +6,7 @@ import '../theme/app_colors.dart';
 import '../theme/app_text.dart';
 
 class CalculateButton extends StatelessWidget {
-const CalculateButton({super.key});
+const CalculateButton({super.key, required Null Function() onPressed});
 
   @override
   Widget build(BuildContext context) {
