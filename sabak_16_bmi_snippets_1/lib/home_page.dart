@@ -6,6 +6,7 @@ import 'package:sabak_16_bmi_snippets_1/theme/app_text.dart';
 import 'components/calculate_Button.dart';
 import 'components/height.dart';
 import 'components/male_female.dart';
+import 'components/result_page.dart';
 import 'components/weight_age.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -19,6 +20,22 @@ class _MyHomePageState extends State<MyHomePage> {
   int weight = 60;
   int age = 18;
   double height = 180;
+void resultattar(){
+    final res = weight / pow(height / 100, 2);
+          if (res <= 18.5) {
+            //print('Сиз арыксыз:$res');
+          _showAlertDialog(context,'Сиз арыксыз');
+          } else if (res >= 18.6 && res <= 25) {
+            //print('Сиз нормалдуусуз:$res');
+            _showAlertDialog(context,'Сиз нормалдуусуз');
+          } else if (res >= 25.1 && res <= 30) {
+          //  print('Сиз Ашыкча салмактуусуз:$res');
+            _showAlertDialog(context,'Сиз ашыкча салмактуусуз');
+          } else {
+           // print('Сиз семизсиз:$res');
+             _showAlertDialog(context,'Сиз семизсиз');
+          }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -139,25 +156,19 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
         bottomNavigationBar: CalculateButton(onPressed: () {
-          final res = weight / pow(height / 100, 2);
-          if (res <= 18.5) {
-            //print('Сиз арыксыз:$res');
-          _showAlertDialog(context,'Сиз арыксыз');
-          } else if (res >= 18.6 && res <= 25) {
-            //print('Сиз нормалдуусуз:$res');
-            _showAlertDialog(context,'Сиз нормалдуусуз');
-          } else if (res >= 25.1 && res <= 30) {
-          //  print('Сиз Ашыкча салмактуусуз:$res');
-            _showAlertDialog(context,'Сиз ашыкча салмактуусуз');
-          } else {
-           // print('Сиз семизсиз:$res');
-             _showAlertDialog(context,'Сиз семизсиз');
-          }
+          resultattar();
+          Navigator.push(context, MaterialPageRoute(builder: (context)=> ResultPage(),
+          ),
+          );
         }
         ),
         );
   }
 }
+
+
+
+ 
 Future<void> _showAlertDialog(BuildContext context,String text) async{
   return showDialog<void>(context: context, barrierDismissible: false,
   builder: (BuildContext context) {

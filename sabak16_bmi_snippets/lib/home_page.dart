@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:sabak16_bmi_snippets/components/result_page.dart';
 import 'package:sabak16_bmi_snippets/components/status_card.dart';
@@ -19,6 +21,23 @@ class _MyHomePageState extends State<MyHomePage> {
   int weight = 60;
   int age = 18;
   double height = 180;
+
+  void resultattar(){
+    final res = weight / pow(height / 100, 2);
+          if (res <= 18.5) {
+            //print('Сиз арыксыз:$res');
+          _showAlertDialog(context,'Сиз арыксыз');
+          } else if (res >= 18.6 && res <= 25) {
+            //print('Сиз нормалдуусуз:$res');
+            _showAlertDialog(context,'Сиз нормалдуусуз');
+          } else if (res >= 25.1 && res <= 30) {
+          //  print('Сиз Ашыкча салмактуусуз:$res');
+            _showAlertDialog(context,'Сиз ашыкча салмактуусуз');
+          } else {
+           // print('Сиз семизсиз:$res');
+             _showAlertDialog(context,'Сиз семизсиз');
+          }
+         }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,14 +63,16 @@ class _MyHomePageState extends State<MyHomePage> {
                         onTap: () {
                           setState(() {
                             isTrue = true;
-                          });
-                        },
+                          }
+                        );
+                      },
                         child: MaleFemale(
                           icon: Icons.male,
                           text: AppTexts.male,
                           isTrue: isTrue,
-                        )),
-                  ),
+                        )
+                      ),
+                     ),
                   const SizedBox(
                     width: 39,
                   ),
@@ -66,11 +87,12 @@ class _MyHomePageState extends State<MyHomePage> {
                           icon: Icons.female,
                           text: AppTexts.female,
                           isTrue: !isTrue,
-                        )),
+                        )
+                      ),
+                     ),
+                   ],
                   ),
-                ],
-              ),
-            ),
+                 ),
             const SizedBox(height: 18,),
 
             /// Для ролл кнопки Height
@@ -83,8 +105,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 onChanged: (value) {
                   setState(() {
                     height = value;
-                  });
-                },
+                  }
+                );
+              },
                 height: height,
               ),
             ),
@@ -104,14 +127,17 @@ class _MyHomePageState extends State<MyHomePage> {
                     removebasuu: () {
                       setState(() {
                         weight--;
-                      });
-                    },
+                      }
+                    );
+                  },
                     addbasuu: () {
                       setState(() {
                         weight++;
-                      });
-                    },
-                  )),
+                      }
+                    );
+                  },
+                )
+              ),
                   const SizedBox(
                     width: 39,
                   ),
@@ -139,7 +165,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       bottomNavigationBar: CalculateButton(
         onPressed:(){
-//resultattar();
+          resultattar();
           Navigator.push(
             context,
              MaterialPageRoute(
@@ -147,11 +173,36 @@ class _MyHomePageState extends State<MyHomePage> {
                =>ResultPage(
                 metri: height,
                 salmak: weight,
+              
                 ),
-          ),
-          );
+              ),
+           );
         },
       ),
     );
   }
 }
+
+Future<void> _showAlertDialog(context,String text) async{
+  return showDialog<void>(
+    context: context, 
+    builder: (BuildContext context){
+    return AlertDialog(
+      backgroundColor: AppColors.fonColor,
+      title: const Text(AppTexts.bmi,textAlign: TextAlign.center,
+      ),
+      content: Text(text,
+      textAlign: TextAlign.center,
+      ),
+      actions: <Widget>[
+        TextButton(child: const Text('Чыгуу'),
+        onPressed: (){
+          Navigator.of(context).pop();
+          print('hbjk');
+        },
+        )
+      ],
+    );
+    },
+  );
+  }

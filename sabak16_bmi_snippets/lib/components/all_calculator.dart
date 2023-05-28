@@ -1,10 +1,10 @@
 import 'dart:math';
 class BmiCalculator{
   double bmi({required double height,required int weight }){
-  final res = weight / pow(height/100,20);
+  final res = weight / pow(height/100,2);
   return res;
   }
-
+ // Метод bmi вычисляет индекс массы тела (BMI) на основе переданных значений роста (height) и веса (weight).
 
 String bmiResult(res) {
   if (res<= 18.5){
@@ -21,6 +21,8 @@ String bmiResult(res) {
     }
     }
   
+// Метод bmiResult определяет результат на основе значения индекса массы тела (res).
+  // Возвращает соответствующую категорию в зависимости от значения индекса массы тела.
 
 String bmiDescription(res) {
   if (res<= 18.5){
@@ -36,4 +38,6 @@ String bmiDescription(res) {
      return 'Сиз семизсиз, срочно фитнес клубка барыныз!! Аз жениз!';
     }
     }
+   // Метод bmiDescription определяет описание результата на основе значения индекса массы тела (res).
+  // Возвращает соответствующее описание в зависимости от значения индекса массы тела.
 }
