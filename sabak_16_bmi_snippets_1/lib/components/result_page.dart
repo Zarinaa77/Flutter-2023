@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../theme/app_colors.dart';
 
 class ResultPage extends StatelessWidget {
@@ -17,7 +16,7 @@ class ResultPage extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.only(left: 11, right: 9, top: 43),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Text(
+          const Text(
             'Жыйынтык',
             style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
           ),
@@ -25,7 +24,7 @@ class ResultPage extends StatelessWidget {
             height: 315,
             width: 380,
             color: AppColors.fonminiColor,
-            child: Column(
+            child: const Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children:[
                 Text('Нормалдуу',
@@ -42,4 +41,3 @@ class ResultPage extends StatelessWidget {
     );
   }
 }
-

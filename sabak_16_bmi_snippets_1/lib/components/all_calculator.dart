@@ -1,4 +1,5 @@
 import 'dart:math';
+
 class BmiCalculator{
   double bmi({required double height,required int weight }){
   final res = weight / pow(height/100,20);
