@@ -11,32 +11,34 @@ import 'components/weight_age.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
+
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  bool isTrue = true;
-  int weight = 60;
-  int age = 18;
-  double height = 180;
-double metri = 0.0;
-  int salmak = 0;
+  bool isTrue = true; // Переключатель для выбора пола (true - мужской, false - женский)
+  int weight = 60; // Начальное значение веса
+  int age = 23; // Начальное значение возраста
+  double height = 180; // Начальное значение роста
 
-   void resultattar() {
-    setState(() {
-      metri = weight / pow(height / 100, 2);
-      if (metri <= 18.5) {
-        salmak = 1; // Арыксыз
-      } else if (metri >= 18.6 && metri <= 25) {
-        salmak = 2; // Нормалдуу
-      } else if (metri >= 25.1 && metri <= 30) {
-        salmak = 3; // Ашыкча салмактуусуз
-      } else {
-        salmak = 4; // Семизсиз
-      }
-    });
+  void resulattar() {
+    final res = weight / pow(height / 100, 2);
+    if (res <= 18.5) {
+      // print('Сиз арыксыз:$res');
+      _showAlertDialog(context, 'Сиз Арыксыз');
+    } else if (res >= 18.6 && res <= 25) {
+      // print('Сиздин салмагыңыз нормалдуу:$res');
+      _showAlertDialog(context, 'Сиздин салмагыңыз нормалдуу');
+    } else if (res >= 25.1 && res <= 30) {
+      // print('Сиз Ашыкча салмактуусуз:$res');
+      _showAlertDialog(context, 'Сиз Ашыкча салмактуусуз');
+    } else {
+      // print('Сиз семиссиз:$res');
+      _showAlertDialog(context, 'Сиз семиссиз');
+    }
   }
+
 @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,7 +59,7 @@ double metri = 0.0;
                     child: InkWell(
                       onTap: () {
                         setState(() {
-                          isTrue = true;
+                          isTrue = true; // Выбран мужской пол
                         });
                       },
                       child: MaleFemale(
@@ -74,7 +76,7 @@ double metri = 0.0;
                     child: InkWell(
                       onTap: () {
                         setState(() {
-                          isTrue = false;
+                          isTrue = false; // Выбран женский пол
                         });
                       },
                       child: MaleFemale(
@@ -93,11 +95,11 @@ double metri = 0.0;
             StatusCard(
               child: Height(
                 text: 'Height',
-                text1: '${height.round()}',
+                text1: '${height.toInt()}',
                 text2: 'cm',
                 onChanged: (value) {
                   setState(() {
-                    height = value;
+                    height = value;  // Обновление значения роста
                   });
                 },
                 height: height,
@@ -115,12 +117,12 @@ double metri = 0.0;
                       san: '$weight',
                       removebasuu: () {
                         setState(() {
-                          weight--;
+                          weight--;   // Уменьшение значения веса
                         });
                       },
                       addbasuu: () {
                         setState(()  {
-                          weight++;
+                          weight++;   // Увеличение значения веса
                         });
                       },
                     )),
@@ -134,12 +136,12 @@ double metri = 0.0;
                         san: '$age',
                         addbasuu: () {
                           setState(() {
-                            age++;
+                            age--; //Уменьшение значения возраста
                           });
                         },
                         removebasuu: () {
                           setState((){
-                          age--;
+                          age++;  // Увеличение значения возраста
                         });
                       },
                     ),
@@ -152,15 +154,43 @@ double metri = 0.0;
       ),
       bottomNavigationBar: CalculateButton(
         onPressed: () {
-          resultattar();
+          //resultattar();
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => ResultPage(metri: metri, salmak: salmak),
+              builder: (context) => ResultPage(
+                metri: height, 
+                salmak: weight),
             ),
           );
         },
       ),
     );
   }
+}
+Future<void> _showAlertDialog(context, String text) async {
+  return showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        backgroundColor: AppColors.fonColor,
+        title: const Text(
+          AppTexts.bmi,
+          textAlign: TextAlign.center,
+        ),
+        content: Text(
+          text,
+          textAlign: TextAlign.center,
+        ),
+        actions: <Widget>[
+          TextButton(
+            child: const Text('Чыгуу'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
 }

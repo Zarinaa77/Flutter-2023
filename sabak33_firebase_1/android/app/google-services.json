@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "894660073199",
+    "project_id": "test-49707",
+    "storage_bucket": "test-49707.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:894660073199:android:1c52bc2c71f52c7aed6d1a",
+        "android_client_info": {
+          "package_name": "com.example.sabak33_firebase_1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "894660073199-a4dgh94v4kioghemefb2j21unbsp8ahf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBnhGlJE83iJPVwTOysXFOJgKlldm58E90"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "894660073199-a4dgh94v4kioghemefb2j21unbsp8ahf.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "894660073199-8l0117epaqtaf4vq7k22q2seki45ico9.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.sabak33Firebase1"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
